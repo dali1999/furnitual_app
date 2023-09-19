@@ -8,6 +8,7 @@ import Carousel from "../components/home/Carousel";
 import Headings from "../components/home/Headings";
 import ProductRow from "../components/products/ProductRow";
 
+
 const Home = () => {
   return (
     <SafeAreaView>
