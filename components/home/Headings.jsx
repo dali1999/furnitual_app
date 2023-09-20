@@ -1,6 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import styles from "./heading.style";
 import { COLORS } from "../../constants";

@@ -9,6 +9,7 @@ import {
 import styles from "./newRivals.style";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "../constants";
+import { ProductLists } from "../components";
 
 export default function NewRivals({ navigation }) {
   return (
@@ -25,6 +26,7 @@ export default function NewRivals({ navigation }) {
 
           <Text style={styles.heading}>Products</Text>
         </View>
+        <ProductLists />
       </View>
     </SafeAreaView>
   );
