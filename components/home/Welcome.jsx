@@ -10,14 +10,14 @@ export default function Welcome() {
   const navigation = useNavigation();
   return (
     <View>
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <Text style={styles.welcomeTxt(COLORS.black, SIZES.xSmall)}>
           Find The Most
         </Text>
         <Text style={styles.welcomeTxt(COLORS.primary, 0)}>
           Luxurious Furniture
         </Text>
-      </View>
+      </View> */}
 
       <View style={styles.searchContainer}>
         <TouchableOpacity>

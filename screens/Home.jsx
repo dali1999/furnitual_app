@@ -10,7 +10,7 @@ import ProductRow from "../components/products/ProductRow";
 
 const Home = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.appBarWrapper}>
         <View style={styles.appBar}>
           <Ionicons name="location-outline" size={24} />

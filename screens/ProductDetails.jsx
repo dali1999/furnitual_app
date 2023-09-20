@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
+import { useRoute } from "@react-navigation/native";
 import {
   Ionicons,
   Fontisto,
@@ -10,6 +11,8 @@ import styles from "./productDetails.style";
 import { COLORS, SIZES } from "../constants";
 
 export default function ProductDetails({ navigation }) {
+  const route = useRoute();
+  const { item } = route.params;
   const [count, setCount] = useState(1);
 
   const increment = () => {
@@ -35,16 +38,16 @@ export default function ProductDetails({ navigation }) {
 
       <Image
         source={{
-          uri: "https://www.ikea.com/images/billy-series-77639f3faed6077c31520a7544321d2b.jpg?f=xs",
+          uri: item.imageUrl,
         }}
         style={styles.image}
       />
 
       <View style={styles.details}>
         <View style={styles.titleRow}>
-          <Text style={styles.title}>Product</Text>
+          <Text style={styles.title}>{item.title}</Text>
           <View style={styles.priceWrapper}>
-            <Text style={styles.price}>$ 660.88</Text>
+            <Text style={styles.price}>{item.price}</Text>
           </View>
         </View>
 
@@ -69,19 +72,14 @@ export default function ProductDetails({ navigation }) {
 
         <View style={styles.descriptionWrapper}>
           <Text style={styles.description}>awdlkaa;dklawkdlawd</Text>
-          <Text style={styles.descText}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facere
-            corrupti eligendi accusantium commodi velit fugit nostrum odio
-            repellat doloribus molestiae repellendus, eum quidem, saepe deleniti
-            facilis veritatis nobis corporis numquam.
-          </Text>
+          <Text style={styles.descText}>{item.description}</Text>
         </View>
 
         <View style={{ marginBottom: SIZES.small }}>
           <View style={styles.location}>
             <View style={{ flexDirection: "row" }}>
               <Ionicons name="location-outline" size={20} />
-              <Text> Dallas </Text>
+              <Text> {item.product_location} </Text>
             </View>
 
             <View style={{ flexDirection: "row" }}>
