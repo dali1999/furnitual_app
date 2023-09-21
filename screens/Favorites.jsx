@@ -1,11 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
-import styles from "./login.style";
 
-export default function LoginPage() {
+export default function Favorites() {
   return (
     <View>
-      <Text>LOGIN PAGE</Text>
+      <Text>as</Text>
     </View>
   );
 }

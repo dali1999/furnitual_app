@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   menuWrapper: {
-    marginTop: SIZES.xLarge,
+    marginTop: SIZES.small,
     width: SIZES.width - SIZES.large,
     backgroundColor: COLORS.lightWhite,
     borderRadius: 12,
