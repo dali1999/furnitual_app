@@ -9,10 +9,9 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import styles from "./login.style";
 import { BackBtn, Button } from "../components";
-// import SignUp from "./SignUp";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { COLORS } from "../constants";
@@ -24,11 +23,13 @@ const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Provide a valid email address")
     .required("Required"),
+  location: Yup.string()
+    .min(3, "Provide a valid location addres")
+    .required("Required"),
 });
 
-export default function LoginPage({ navigation }) {
+export default function SignUp({ navigation }) {
   const [loader, setLoader] = useState(false);
-  const [responseData, setResponseData] = useState(null);
   const [obsecureText, setObsecureText] = useState(false);
 
   const inValidForm = () => {
@@ -44,7 +45,6 @@ export default function LoginPage({ navigation }) {
       { defaultIndex: 1 },
     ]);
   };
-
   return (
     <ScrollView>
       <SafeAreaView style={{ marginHorizontal: 20, marginVertical: 40 }}>
@@ -58,7 +58,7 @@ export default function LoginPage({ navigation }) {
           <Text style={styles.title}>Unlimited Luxurious Furniture</Text>
 
           <Formik
-            initialValues={{ email: "", password: "" }}
+            initialValues={{ email: "", password: "", location: "" }}
             validationSchema={validationSchema}
             onSubmit={(values) => console.log(values)}
           >
@@ -107,7 +107,41 @@ export default function LoginPage({ navigation }) {
                   )}
                 </View>
 
-                {/* PASSWORD =============================================*/}
+                {/* LOCATION ===========================================*/}
+                <View style={styles.wrapper}>
+                  <Text style={styles.label}>Location</Text>
+                  <View
+                    style={styles.inputWrapper(
+                      touched.location ? COLORS.primary : COLORS.offwhite
+                    )}
+                  >
+                    <Ionicons
+                      name="location-outline"
+                      size={20}
+                      color={COLORS.gray}
+                      style={styles.iconStyle}
+                    />
+                    <TextInput
+                      placeholder="Enter location"
+                      onFocus={() => {
+                        setFieldTouched("location");
+                      }}
+                      onBlur={() => {
+                        setFieldTouched("location", "");
+                      }}
+                      value={values.location}
+                      onChangeText={handleChange("location")}
+                      autoCapitalize="none"
+                      antoCorrect="false"
+                      style={{ flex: 1 }}
+                    />
+                  </View>
+                  {touched.location && errors.location && (
+                    <Text style={styles.errorMessage}>{errors.location}</Text>
+                  )}
+                </View>
+
+                {/* PASSWORD ===========================================*/}
                 <View style={styles.wrapper}>
                   <Text style={styles.label}>Password</Text>
                   <View
@@ -153,9 +187,9 @@ export default function LoginPage({ navigation }) {
                   )}
                 </View>
 
-                {/* LOGIN BUTTON =============================================*/}
+                {/* LOGIN BUTTON ========================================*/}
                 <Button
-                  title={"L O G I N"}
+                  title={"S I G N U P"}
                   onPress={isValid ? handleSubmit : inValidForm}
                   isValid={isValid}
                 />

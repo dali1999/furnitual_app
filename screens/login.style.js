@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.xLarge,
     color: COLORS.primary,
     alignItems: "center",
-    marginBottom: SIZES.xxLarge,
+    marginBottom: SIZES.small - 4,
   },
   wrapper: {
     marginBottom: 20,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.xSmall,
   },
   registration: {
-    marginTop: 20,
+    marginTop: 10,
     textAlign: "center",
   },
 });
