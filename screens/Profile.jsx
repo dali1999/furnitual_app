@@ -17,7 +17,8 @@ const Profile = ({ navigation }) => {
 
   useEffect(() => {
     checkExistingUser();
-  });
+  }, []);
+
   const checkExistingUser = async () => {
     const id = await AsyncStorage.getItem("id");
     const useId = `user${JSON.parse(id)}`;
@@ -25,10 +26,11 @@ const Profile = ({ navigation }) => {
     try {
       const currentUser = await AsyncStorage.getItem(useId);
 
-      if (currentUser != null) {
-        const parsedData = JSON.paese(currentUser);
+      if (currentUser !== null) {
+        const parsedData = JSON.parse(currentUser);
         setUserData(parsedData);
         setUserLogin(true);
+        console.log(userData);
       } else {
         navigation.navigate("Login");
       }
@@ -106,7 +108,9 @@ const Profile = ({ navigation }) => {
           />
 
           <Text style={styles.name}>
-            {userLogin === true ? "Andre" : "Please login into your account"}
+            {userLogin === true
+              ? userData.username
+              : "Please login into your account"}
           </Text>
 
           {userLogin === false ? (
@@ -121,7 +125,7 @@ const Profile = ({ navigation }) => {
             </TouchableOpacity>
           ) : (
             <View style={styles.loginBtn}>
-              <Text style={styles.menuText}>dali1999@naver.com</Text>
+              <Text style={styles.menuText}>{userData.email}</Text>
             </View>
           )}
 
