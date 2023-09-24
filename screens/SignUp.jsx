@@ -14,7 +14,7 @@ import styles from "./login.style";
 import { BackBtn, Button } from "../components";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { COLORS } from "../constants";
+import { COLORS, SIZES } from "../constants";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -24,7 +24,10 @@ const validationSchema = Yup.object().shape({
     .email("Provide a valid email address")
     .required("Required"),
   location: Yup.string()
-    .min(3, "Provide a valid location addres")
+    .min(3, "Provide a valid location")
+    .required("Required"),
+  username: Yup.string()
+    .min(3, "Provide a valid username")
     .required("Required"),
 });
 
@@ -52,13 +55,23 @@ export default function SignUp({ navigation }) {
           <BackBtn onPress={() => navigation.goBack()} />
           <Image
             source={require("../assets/images/bk.png")}
-            style={styles.cover}
+            style={{
+              height: SIZES.height / 3.2,
+              width: SIZES.width - 60,
+              resizeMode: "contain",
+              marginBottom: SIZES.xxLarge,
+            }}
           />
 
           <Text style={styles.title}>Unlimited Luxurious Furniture</Text>
 
           <Formik
-            initialValues={{ email: "", password: "", location: "" }}
+            initialValues={{
+              email: "",
+              password: "",
+              location: "",
+              username: "",
+            }}
             validationSchema={validationSchema}
             onSubmit={(values) => console.log(values)}
           >
@@ -73,6 +86,40 @@ export default function SignUp({ navigation }) {
               setFieldTouched,
             }) => (
               <View>
+                {/* USERNAME ==========================================*/}
+                <View style={styles.wrapper}>
+                  <Text style={styles.label}>Username</Text>
+                  <View
+                    style={styles.inputWrapper(
+                      touched.email ? COLORS.primary : COLORS.offwhite
+                    )}
+                  >
+                    <MaterialCommunityIcons
+                      name="face-man-profile"
+                      size={20}
+                      color={COLORS.gray}
+                      style={styles.iconStyle}
+                    />
+                    <TextInput
+                      placeholder="Enter username"
+                      onFocus={() => {
+                        setFieldTouched("username");
+                      }}
+                      onBlur={() => {
+                        setFieldTouched("username", "");
+                      }}
+                      value={values.username}
+                      onChangeText={handleChange("username")}
+                      autoCapitalize="none"
+                      antoCorrect="false"
+                      style={{ flex: 1 }}
+                    />
+                  </View>
+                  {touched.username && errors.username && (
+                    <Text style={styles.errorMessage}>{errors.username}</Text>
+                  )}
+                </View>
+
                 {/* EMAIL =============================================*/}
                 <View style={styles.wrapper}>
                   <Text style={styles.label}>Email</Text>

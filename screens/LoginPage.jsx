@@ -16,6 +16,8 @@ import { BackBtn, Button } from "../components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { COLORS } from "../constants";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -45,6 +47,59 @@ export default function LoginPage({ navigation }) {
     ]);
   };
 
+  //로그인 시 반환
+  const login = async (values) => {
+    setLoader(true);
+    try {
+      const endpoint = "http://192.168.55.136:3000/api/login";
+      const data = values;
+
+      const response = await axios.post(endpoint, data);
+      if (response.status === 200) {
+        setLoader(false);
+        setResponseData(response.data);
+
+        await AsyncStorage.setItem(
+          //user923874293847923847
+          `user${responseData._id}`,
+          JSON.stringify(responseData)
+        );
+        await AsyncStorage.setItem("id", JSON.stringify(responseData._id));
+        navigation.replace("Bottom Navigation");
+      } else {
+        Alert.alert(
+          "Error Loggin in",
+          "Please provide valid required credentials",
+          [
+            {
+              text: "Cancel",
+              onPress: () => {},
+            },
+            {
+              text: "Continue",
+              onPress: () => {},
+            },
+            { defaultIndex: 1 },
+          ]
+        );
+      }
+    } catch (error) {
+      Alert.alert("Error", "Oops, Error loggin in! try again", [
+        {
+          text: "Cancel",
+          onPress: () => {},
+        },
+        {
+          text: "Continue",
+          onPress: () => {},
+        },
+        { defaultIndex: 1 },
+      ]);
+    } finally {
+      setLoader(false);
+    }
+  };
+
   return (
     <ScrollView>
       <SafeAreaView style={{ marginHorizontal: 20, marginVertical: 40 }}>
@@ -60,7 +115,7 @@ export default function LoginPage({ navigation }) {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={validationSchema}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => login(values)}
           >
             {({
               handleChange,
@@ -155,6 +210,7 @@ export default function LoginPage({ navigation }) {
 
                 {/* LOGIN BUTTON =============================================*/}
                 <Button
+                  loader={loader}
                   title={"L O G I N"}
                   onPress={isValid ? handleSubmit : inValidForm}
                   isValid={isValid}
