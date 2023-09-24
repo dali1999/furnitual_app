@@ -15,6 +15,7 @@ import { BackBtn, Button } from "../components";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { COLORS, SIZES } from "../constants";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -45,8 +46,22 @@ export default function SignUp({ navigation }) {
         text: "Continue",
         onPress: () => {},
       },
-      { defaultIndex: 1 },
     ]);
+  };
+
+  const registerUser = async (values) => {
+    setLoader(true);
+    try {
+      const endpoint = "http://192.168.55.136:3000/api/register";
+      const data = values;
+
+      const response = await axios.post(endpoint, data);
+      if (response.status === 201) {
+        navigation.replace("Login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <ScrollView>
@@ -73,7 +88,7 @@ export default function SignUp({ navigation }) {
               username: "",
             }}
             validationSchema={validationSchema}
-            onSubmit={(values) => console.log(values)}
+            onSubmit={(values) => registerUser(values)}
           >
             {({
               handleChange,
@@ -234,8 +249,9 @@ export default function SignUp({ navigation }) {
                   )}
                 </View>
 
-                {/* LOGIN BUTTON ========================================*/}
+                {/* SIGNIN BUTTON ========================================*/}
                 <Button
+                  loader={loader}
                   title={"S I G N U P"}
                   onPress={isValid ? handleSubmit : inValidForm}
                   isValid={isValid}

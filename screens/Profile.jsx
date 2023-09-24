@@ -39,17 +39,26 @@ const Profile = ({ navigation }) => {
     }
   };
 
+  const userLogout = async () => {
+    const id = await AsyncStorage.getItem("id");
+    const useId = `user${JSON.parse(id)}`;
+    try {
+      await AsyncStorage.multiRemove([useId, "id"]);
+      navigation.replace("Bottom Navigation");
+    } catch (error) {
+      console.log("Error loggin out the user:", error);
+    }
+  };
   const logout = () => {
-    Alert.alert("Logout", "Are you sure you want to", [
+    Alert.alert("Logout", "Are you sure you want to logout", [
       {
         text: "Cancel",
-        onPress: () => console.log("cancel pressed"),
+        onPress: () => console.log("cancel logout"),
       },
       {
         text: "Continue",
-        onPress: () => console.log("LOGOUT!"),
+        onPress: () => userLogout(),
       },
-      { defaultIndex: 1 },
     ]);
   };
 

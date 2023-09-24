@@ -43,7 +43,6 @@ export default function LoginPage({ navigation }) {
         text: "Continue",
         onPress: () => {},
       },
-      { defaultIndex: 1 },
     ]);
   };
 
@@ -79,7 +78,6 @@ export default function LoginPage({ navigation }) {
               text: "Continue",
               onPress: () => {},
             },
-            { defaultIndex: 1 },
           ]
         );
       }
