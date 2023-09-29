@@ -1,4 +1,3 @@
-//useFetch.js
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
